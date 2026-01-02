@@ -11,3 +11,4 @@ Biomarker Analysis: The extracted fields are sent to the Gemini API. I engineere
 5. Instant Notification: Once the analysis is complete, results are written to a second DynamoDB table, and Amazon SNS sends an automated email to the assigned doctor with the full AI-generated interpretation.
 
 This project was a deep dive into building production-ready AI pipelines on the cloud. I’m excited about the potential of Generative AI to act as a diagnostic assistant, reducing the cognitive load on healthcare professionals.
+Video Link: https://drive.google.com/file/d/1z6nMvKmFX9F4vTCIu2hq6jOggKlqbx1S/view?usp=sharing
