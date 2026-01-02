@@ -4,13 +4,13 @@ The healthcare industry is generating more diagnostic data than ever, but manual
 Here’s how the architecture works and why it’s a game-changer for digital health workflows:
 
 The Workflow: From Raw PDF to Intelligent Insights
-1️⃣ Secure Ingestion: A hospital staff member uploads a patient report via a web portal. To ensure security, the system uses AWS API Gateway and a Lambda function to generate an S3 Presigned URL. This allows the client to upload the file directly to a private S3 bucket without exposing the backend.
-2️⃣ Event-Driven Metadata: Simultaneously, patient metadata (Name, Doctor, ID) is stored in Amazon DynamoDB, ensuring a decoupled and highly available data layer.
-3️⃣ The AI Trigger: As soon as the PDF hits Amazon S3, an asynchronous event notification triggers the core AI-Processor Lambda.
+1. Secure Ingestion: A hospital staff member uploads a patient report via a web portal. To ensure security, the system uses AWS API Gateway and a Lambda function to generate an S3 Presigned URL. This allows the client to upload the file directly to a private S3 bucket without exposing the backend.
+2.  Event-Driven Metadata: Simultaneously, patient metadata (Name, Doctor, ID) is stored in Amazon DynamoDB, ensuring a decoupled and highly available data layer.
+3.  The AI Trigger: As soon as the PDF hits Amazon S3, an asynchronous event notification triggers the core AI-Processor Lambda.
 Text Extraction: Using the PyPDF2 library, the system extracts raw clinical data from the report.
 Biomarker Analysis: The extracted fields are sent to the Gemini API. I engineered a custom prompt that instructs the model to identify specific biomarkers and flag them as Normal or Abnormal based on clinical ranges.
-4️⃣ Diagnostic Reasoning: Beyond simple flagging, Gemini synthesizes the findings into a Diagnostic Summary. It explains why certain values are concerning while intelligently filtering out "minute noise"—minor deviations that aren't clinically significant.
-5️⃣ Instant Notification: Once the analysis is complete, results are written to a second DynamoDB table, and Amazon SNS sends an automated email to the assigned doctor with the full AI-generated interpretation.
+4. Diagnostic Reasoning: Beyond simple flagging, Gemini synthesizes the findings into a Diagnostic Summary. It explains why certain values are concerning while intelligently filtering out "minute noise"—minor deviations that aren't clinically significant.
+5. Instant Notification: Once the analysis is complete, results are written to a second DynamoDB table, and Amazon SNS sends an automated email to the assigned doctor with the full AI-generated interpretation.
 Why Serverless?
 By leveraging a serverless architecture (Lambda, S3, DynamoDB), the system is: 
 1. Highly Scalable: It can handle 10 reports or 10,000 without manual intervention. 
